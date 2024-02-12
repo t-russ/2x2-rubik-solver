@@ -35,15 +35,17 @@ class Cube:
         print(colourCounts)
 
     def printCube(self):
-        print(self.up)
-        print(self.left)
-        print(self.front) 
-        print(self.right)
-        print(self.back)
-        print(self.down)
+        """printTemplate = "{} {} {} \n{} {} {}\n{} {} {}\n {} {} {}"
+        print(*[f"{self.up[i][j]}" for i in range(3) for j in range(3)])
+        print(printTemplate.format(*[f"{self.up[i][j]}" for i in range(3) for j in range(3)]))"""
 
-
-
+        for j in range(3):
+            print('       ', *self.up[j, :])
+        for j in range(3):
+            print(*self.left[j, :], ' ', *self.front[j, :], ' ', *self.right[j, :], ' ', *self.back[j, :])
+        for j in range(3):
+            print('       ', *self.down[j, :])        
+            
     def F(self):
         #isolate one face as our placeholder, then swap subsequent values
         downSwap = copy.deepcopy(self.down[0, :])
@@ -83,28 +85,29 @@ class Cube:
         downSwap = copy.deepcopy(self.down[2, :])
 
         self.down[2, :] = self.left[:, 0]
-        self.left[:, 0] = self.up[0, :]
+        self.left[:, 0] = self.up[0, :][::-1]
         self.up[0, :] = self.right[:, 2]
-        self.right[:, 2] = downSwap
+        self.right[:, 2] = downSwap[::-1]
 
         self.back = np.rot90(self.back, 3)
 
     def L(self):
-        #####fix#####
+
         downSwap = copy.deepcopy(self.down[:, 0])
 
         self.down[:, 0] = self.front[:, 0]
         self.front[:, 0] = self.up[:, 0]
-        self.up[:, 0] = self.back[:, 2]
-        self.back[:, 2] = downSwap
+        self.up[:, 0] = self.back[:, 2][::-1]
+        self.back[:, 2] = downSwap[::-1]
 
         self.left = np.rot90(self.left, 3)
 
     def R(self):
+
         downSwap = copy.deepcopy(self.down[:, 2])
 
-        self.down[:, 2] = self.back[:, 0]
-        self.back[:, 0] = self.up[:, 2]
+        self.down[:, 2] = self.back[:, 0][::-1]
+        self.back[:, 0] = self.up[:, 2][::-1]
         self.up[:, 2] = self.front[:, 2]
         self.front[:, 2] = downSwap
 

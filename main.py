@@ -6,14 +6,14 @@ import copy
 #Solved set of faces for testing
 
 Sfront = [['r', 'r', 'r'],
-         ['t', 'r', 'r'],
+         ['r', 'r', 'r'],
          ['r', 'r', 'r']]
 
 Sback =  [['o', 'o', 'o'],
          ['o', 'o', 'o'],
-         ['o', 'o', 'f']]
+         ['o', 'o', 'o']]
 
-Sup =    [['l', 'w', 'w'],
+Sup =    [['w', 'w', 'w'],
          ['w', 'w', 'w'],
          ['w', 'w', 'w']]
 
@@ -31,12 +31,18 @@ Sright = [['b', 'b', 'b'],
 
 
 testCube = Cube(Sfront, Sback, Sup, Sdown, Sleft, Sright)
-"""testCube.R()
+"""testCube.F()
+testCube.D()
+testCube.R()
+testCube.U()
+testCube.L()
+testCube.B()
+testCube.U()
+testCube.L()
+testCube.B()
 testCube.F()
 testCube.D()
-testCube.U()"""
-testCube.L()
-#testCube.B()
+testCube.R()"""
 testCube.printCube()  
 
 #testCube.validation()
