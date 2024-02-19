@@ -1,6 +1,5 @@
 from cubeClass import *
 import numpy as np
-import copy
 
 
 #Solved set of faces for testing
