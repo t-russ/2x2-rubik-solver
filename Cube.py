@@ -68,8 +68,8 @@ def applyMove(cubeState, m):
 """Applys a string such as "F F' U2" to the cube.
    Useful for scrambling and testing """
 def applyMoveString(cubeState, moveString):
-     movelist = stringToMoves(moveString)
-     for i in movelist:
+     moveList = stringToMoves(moveString)
+     for i in moveList:
           cubeState = applyMove(cubeState, i)
      return cubeState
 
@@ -111,7 +111,7 @@ def printCube(cubeState, colouring):
 
 
 
-testcube = np.array([
+testcubeSolved = np.array([
           'R', 'R', 'R', 'R',
           'B', 'B', 'B', 'B',
           'O', 'O', 'O', 'O',
@@ -119,5 +119,20 @@ testcube = np.array([
           'W', 'W', 'W', 'W',
           'Y', 'Y', 'Y', 'Y'])
 
-printCube(testcube, True)
+testcube = np.array([
+          'B', 'O', 'R', 'Y',
+          'W', 'W', 'O', 'G',
+          'O', 'Y', 'W', 'Y',
+          'B', 'O', 'G', 'B',
+          'R', 'G', 'Y', 'B',
+          'W', 'G', 'R', 'R'])
+
+SolveString = "U F2 U F U2 R U' R F2"
+
+"""printCube(testcube, True)
 print(solved(testcube))
+
+solvedstate = applyMoveString(testcube, SolveString)
+
+printCube(solvedstate, True)
+print(solved(solvedstate))"""
