@@ -127,12 +127,22 @@ testcube = np.array([
           'R', 'G', 'Y', 'B',
           'W', 'G', 'R', 'R'])
 
-SolveString = "U F2 U F U2 R U' R F2"
+testcube2 = np.array([
+          'B', 'G', 'W', 'O',
+          'R', 'G', 'G', 'Y',
+          'W', 'G', 'R', 'W',
+          'Y', 'O', 'B', 'B',
+          'R', 'O', 'Y', 'W',
+          'O', 'Y', 'R', 'B'])
 
-"""printCube(testcube, True)
+SolveStringOptimal = "U F2 U F U2 R U' R F2"
+
+solvestring = "F U F U F U2 F U2 R U2 R F2 R2"
+
+printCube(testcube, True)
 print(solved(testcube))
 
-solvedstate = applyMoveString(testcube, SolveString)
+solvedstate = applyMoveString(testcube, solvestring)
 
 printCube(solvedstate, True)
-print(solved(solvedstate))"""
+print(solved(solvedstate))
