@@ -1,4 +1,5 @@
 import Cube
+from printCube import *
 
 from time import perf_counter
 
@@ -27,8 +28,8 @@ def depthFirstSearch(cubeState, maxDepth):
    used by both dfs function and iterative deepening function"""
 def dfsRecursive(cubeState, maxDepth, depth, moveStack, nextMove):
     dfsRecursive.counter += 1 #used to see how many functions calls occur
-    depth +=1
     if depth >= maxDepth: return False
+    depth +=1
 
     for m in nextMove:
         newState = Cube.applyMove(cubeState, m)

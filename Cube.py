@@ -25,7 +25,7 @@ This is done since this allows for every cube to be moved without moving our fix
 #maps moves to indices within the moves array
 moveMap = {'F':0, 'F2':1, "F'":2, 'U':3, 'U2':4, "U'":5, 'R':6, 'R2':7, "R'":8}
 
-#permutations of the cube F2, F' etc created by applying permutation 2 or 3 times to [1, 2, ... , 23]
+#permutations of the cube. F2, F' etc created by applying permutation 2 or 3 times to [1, 2, ... , 23]
 moves = np.array([
     [2, 0, 3, 1, 18, 5, 19, 7, 8, 9, 10, 11, 12, 20, 14, 21, 16, 17, 15, 13, 6, 4, 22, 23],
     [3, 2, 1, 0, 15, 5, 13, 7, 8, 9, 10, 11, 12, 6, 14, 4, 16, 17, 21, 20, 19, 18, 22, 23],
@@ -39,15 +39,6 @@ moves = np.array([
 
 #define regular expression pattern to find moves from a given string
 cubeStringRegex = re.compile(r"[FURfur][2']?")
-
-
-#Maps characters to their Ansi escape sequence, allows for colour printing in terminal
-colourMap = {'R' : '\033[31mR\033[0m',
-             'O' : '\033[38;5;208mO\033[0m',
-             'B' : '\033[38;5;12mB\033[0m',
-             'G' : '\033[38;5;10mG\033[0m',
-             'W' : '\033[38;5;15mW\033[0m',
-             'Y' : '\033[38;5;11mY\033[0m'}
 
 
 """Converts a string of moves to a list of moves.
@@ -83,33 +74,6 @@ def solved(cubeState):
      return True
 
 
-"""prints cube, has option for printing in colour.
-   colouring = True uses colour printing.
-
-   !!!must be printing in terminal to work!!!
-
-   Do not use if printing to output tab in vscode/codium"""
-def printCube(cubeState, colouring):
-     if colouring:
-          withC = np.vectorize(colourMap.get)(cubeState)
-     else:
-          withC = cubeState
-     cubePrint = '''
-        ----
-       |{16}  {17}|
-       |{18}  {19}|
- ----   ----   ----   ---- 
-|{12}  {13}| |{0}  {1}| |{4}  {5}| |{8}  {9}|
-|{14}  {15}| |{2}  {3}| |{6}  {7}| |{10}  {11}|
- ----   ----   ----   ----
-       |{20}  {21}|
-       |{22}  {23}|
-        ----
-            '''
-     print(cubePrint.format(*withC))
-
-
-
 
 testcubeSolved = np.array([
           'R', 'R', 'R', 'R',
@@ -139,10 +103,10 @@ SolveStringOptimal = "U F2 U F U2 R U' R F2"
 
 solvestring = "F U F U F U2 F U2 R U2 R F2 R2"
 
-printCube(testcube, True)
+"""printCube(testcube, True)
 print(solved(testcube))
 
 solvedstate = applyMoveString(testcube, solvestring)
 
 printCube(solvedstate, True)
-print(solved(solvedstate))
+print(solved(solvedstate))"""
