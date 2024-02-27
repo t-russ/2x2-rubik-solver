@@ -1,4 +1,5 @@
 import numpy as np
+from printCube import *
 import re
 """
 Cube modelled in form:
@@ -84,29 +85,19 @@ testcubeSolved = np.array([
           'Y', 'Y', 'Y', 'Y'])
 
 testcube = np.array([
-          'B', 'O', 'R', 'Y',
-          'W', 'W', 'O', 'G',
-          'O', 'Y', 'W', 'Y',
-          'B', 'O', 'G', 'B',
-          'R', 'G', 'Y', 'B',
-          'W', 'G', 'R', 'R'])
+          'B', 'Y', 'Y', 'G',
+          'B', 'W', 'O', 'Y',
+          'G', 'Y', 'O', 'W',
+          'R', 'W', 'B', 'O',
+          'G', 'R', 'O', 'R',
+          'B', 'W', 'R', 'G'])
 
-testcube2 = np.array([
-          'B', 'G', 'W', 'O',
-          'R', 'G', 'G', 'Y',
-          'W', 'G', 'R', 'W',
-          'Y', 'O', 'B', 'B',
-          'R', 'O', 'Y', 'W',
-          'O', 'Y', 'R', 'B'])
 
-SolveStringOptimal = "U F2 U F U2 R U' R F2"
 
-solvestring = "F U F U F U2 F U2 R U2 R F2 R2"
+"""solvestring = "F2 U' F R' U F' U R2 U' F"
 
-"""printCube(testcube, True)
-print(solved(testcube))
+printCube(testcube, True)
 
 solvedstate = applyMoveString(testcube, solvestring)
 
-printCube(solvedstate, True)
-print(solved(solvedstate))"""
+printCube(solvedstate, True)"""

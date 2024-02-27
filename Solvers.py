@@ -16,18 +16,17 @@ nextMoveMap = {"id1" : ["U", "U2", "U'", "R", "R2", "R'"],
          "id3" : ["F", "F2", "F'", "U", "U2", "U'"]}
 
 """Exectues a depth first search with a give state and maximum depth of traversal
-   doesn't actually contain the depth first search algorithm"""
+   doesn't actually contain the depth first search algorithm
 def depthFirstSearch(cubeState, maxDepth):
     moveStack = []
     initialMoves = ["F", "F2", "F'", "U", "U2", "U'", "R", "R2", "R'"]
-    dfsRecursive(cubeState, maxDepth, 0, moveStack, initialMoves)
-    print(' '.join(moveStack))
+    dfs(cubeState, maxDepth, 0, moveStack, initialMoves)
+    print(' '.join(moveStack))"""
 
 
 """The bread and butter of the depth first search. completed using recursive function
-   used by both dfs function and iterative deepening function"""
-def dfsRecursive(cubeState, maxDepth, depth, moveStack, nextMove):
-    dfsRecursive.counter += 1 #used to see how many functions calls occur
+   used by iterative deepening function"""
+def dfs(cubeState, maxDepth, depth, moveStack, nextMove):
     if depth >= maxDepth: return False
     depth +=1
 
@@ -37,7 +36,7 @@ def dfsRecursive(cubeState, maxDepth, depth, moveStack, nextMove):
 
         if Cube.solved(newState):return True
 
-        if dfsRecursive(newState, maxDepth, depth, moveStack, nextMoveMap[alias[m]]):
+        if dfs(newState, maxDepth, depth, moveStack, nextMoveMap[alias[m]]):
             return True
         
         moveStack.pop()
@@ -45,7 +44,7 @@ def dfsRecursive(cubeState, maxDepth, depth, moveStack, nextMove):
     return False
 
 """Iterative deepening algorithm, works by calling the dfs recursive function with
-    increasing depth """
+    increasing depth each iteration"""
 def iterativeDeepening(cubeState):
     moveStack = []
     initialMoves = ["F", "F2", "F'", "U", "U2", "U'", "R", "R2", "R'"]
@@ -55,7 +54,7 @@ def iterativeDeepening(cubeState):
     while not condition:
         a = perf_counter()
 
-        condition = dfsRecursive(cubeState, currentDepth, 0, moveStack, initialMoves)
+        condition = dfs(cubeState, currentDepth, 0, moveStack, initialMoves)
         
         b = perf_counter()
 
@@ -64,10 +63,4 @@ def iterativeDeepening(cubeState):
 
     print(' '.join(moveStack))
 
-
-dfsRecursive.counter = 0
-iterativeDeepening(Cube.testcube2)
-
-print(dfsRecursive.counter)
-
-            
+#iterativeDeepening(Cube.testcube)
