@@ -1,6 +1,4 @@
 import Cube
-import iterativeDeepening
-import numpy as np
 import pickle
 from time import perf_counter
 
@@ -15,7 +13,7 @@ def pruneDFS(cubeState, maxDepth, depth, nextMove):
 
     for m in nextMove:
         newState = Cube.applyMove(cubeState, m)
-        stateHash = stateToHash(cubeState)
+        stateHash = Cube.stateToHash(cubeState)
 
         if stateHash in pruningTable:
             if pruningTable.get(stateHash) > depth -1:
