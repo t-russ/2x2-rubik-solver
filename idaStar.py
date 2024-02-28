@@ -14,7 +14,7 @@ def idaStar(cubeState):
     initialMoves = ["F", "F2", "F'", "U", "U2", "U'", "R", "R2", "R'"]
     currentDepth = 1
     condition = False
-
+    totalTimeStart = perf_counter()
     while not condition:
         a = perf_counter()
         condition = idaDFS(cubeState, maxDistance, currentDepth, 0, moveStack, initialMoves)
@@ -23,9 +23,10 @@ def idaStar(cubeState):
         print(f"Depth {currentDepth}: Completed in {b-a} seconds ") 
 
         currentDepth += 1
-
+    totalTimeEnd = perf_counter()
 
     print(' '.join(moveStack))
+    print(f'Solution found in {totalTimeEnd-totalTimeStart}')
 
 
 def idaDFS(cubeState, maxDistance, maxDepth, depth, moveStack, nextMove):
@@ -34,7 +35,6 @@ def idaDFS(cubeState, maxDistance, maxDepth, depth, moveStack, nextMove):
     depth +=1
 
     for m in nextMove:
-        dfs.counter += 1
         newState = Cube.applyMove(cubeState, m)
 
         if pruningTable.get(stateToHash(newState)) + depth > maxDistance:
@@ -63,4 +63,4 @@ twomovetest = np.array([
 
 #print(pruningTable.get(stateToHash(normaliseCube(twomovetest))))
 idaDFS.counter = 0
-idaStar(twomovetest)
+idaStar(Cube.testcube)
