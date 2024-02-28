@@ -1,4 +1,6 @@
 import numpy as np
+from Cube import applyMoveString
+
 #Maps characters to their Ansi escape sequence, allows for colour printing in terminal
 colourMap = {'R' : '\033[31mR\033[0m',
              'O' : '\033[38;5;208mO\033[0m',
@@ -15,9 +17,6 @@ colourMap = {'R' : '\033[31mR\033[0m',
    !!!must be printing in terminal to work!!!
 
    Do not use if printing to output tab in vscode/codium"""
-
-
-
 
 def printCube(cubeState, colouring):
      if colouring:
@@ -37,3 +36,9 @@ def printCube(cubeState, colouring):
         ----
             '''
      print(cubePrint.format(*withC))
+
+
+
+def printMoveString(cubeState, moveString, colouring):
+
+     printCube(applyMoveString(cubeState, moveString), colouring)

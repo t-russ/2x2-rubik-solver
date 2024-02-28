@@ -1,28 +1,6 @@
 import numpy as np
-from printCube import *
 import re
-"""
-Cube modelled in form:
-       _____
-      |16 17|
-      |18 19|
- _____ _____ _____ _____ 
-|12 13|00 01|04 05|08 09|
-|14 15|02 03|06 07|10 11|
- ‾‾‾‾‾ ‾‾‾‾‾ ‾‾‾‾‾ ‾‾‾‾‾  
-      |20 21|
-      |22 23|
-       ‾‾‾‾‾
 
-Each facelet has a different indice
-A 24 length array is used to store the state of the cube.
-
-Moves are modelled as permutations. 
-each value in the array displays where each index in the current state of the cube is moved.
-
-DLB (down left back corner) is fixed, this means that the only moves needed to solve are F U R.
-This is done since this allows for every cube to be moved without moving our fixed corner.
-"""
 #maps moves to indices within the moves array
 moveMap = {'F':0, 'F2':1, "F'":2, 'U':3, 'U2':4, "U'":5, 'R':6, 'R2':7, "R'":8}
 
@@ -42,12 +20,27 @@ moves = np.array([
 cubeStringRegex = re.compile(r"[FURfur][2']?")
 
 
+"""Create a map that takes last move and returns list of acceptable next moves
+   this removes basic redundant sequences of moves such as F2 F2, F F' etc."""
+
+alias = {"F" : "id1", "F2" : "id1", "F'" : "id1",
+            "U" : "id2", "U2" : "id2", "U'" : "id2",
+            "R" : "id3", "R2" : "id3", "R'" : "id3"
+            }
+
+nextMoveMap = {"id1" : ["U", "U2", "U'", "R", "R2", "R'"],
+         "id2" : ["F", "F2", "F'", "R", "R2", "R'"],
+         "id3" : ["F", "F2", "F'", "U", "U2", "U'"]}
+
+
+
 """Converts a string of moves to a list of moves.
    Seperation done by applying regular expression.
    example: "F F2 F'" -> ["F", "F2", "F'"]  """
 def stringToMoves(moveString):
     moveList = cubeStringRegex.findall(moveString)
     return moveList
+
 
 
 """Applys permutation to cubes current state"""
@@ -75,29 +68,34 @@ def solved(cubeState):
      return True
 
 
+"""Normalise Cube is used to convert colour cube into numbered cube by face, this is needed
+by ida* algorithm to work. This is due to there being no fixed colour for each face of the cube"""
+def normaliseCube(cubeState):
+    oppositeFaceMap = {'R':'O', 'O':'R', 'B':'G', 'G':'B', 'W':'Y', 'Y':'W'}
 
-testcubeSolved = np.array([
-          'R', 'R', 'R', 'R',
-          'B', 'B', 'B', 'B',
-          'O', 'O', 'O', 'O',
-          'G', 'G', 'G', 'G',
-          'W', 'W', 'W', 'W',
-          'Y', 'Y', 'Y', 'Y'])
+    downColour = cubeState[22]
+    leftColour = cubeState[14]
+    backColour = cubeState[11]
+    frontColour = oppositeFaceMap.get(backColour)
+    rightColour = oppositeFaceMap.get(leftColour)
+    upColour = oppositeFaceMap.get(downColour)
 
-testcube = np.array([
-          'B', 'Y', 'Y', 'G',
-          'B', 'W', 'O', 'Y',
-          'G', 'Y', 'O', 'W',
-          'R', 'W', 'B', 'O',
-          'G', 'R', 'O', 'R',
-          'B', 'W', 'R', 'G'])
+    cubeState[cubeState == frontColour] = 0
+    cubeState[cubeState == rightColour] = 1
+    cubeState[cubeState == backColour] = 2
+    cubeState[cubeState == leftColour] = 3
+    cubeState[cubeState == upColour] = 4
+    cubeState[cubeState == downColour] = 5
+
+    cubeState = [eval(i) for i in cubeState]
+
+    return cubeState
+
+
+"""Converts cubeState into a hash, tuple used as cannot hash mutable objects"""
+def stateToHash(cubeState):
+    return hash(tuple(cubeState))
 
 
 
-"""solvestring = "F2 U' F R' U F' U R2 U' F"
 
-printCube(testcube, True)
-
-solvedstate = applyMoveString(testcube, solvestring)
-
-printCube(solvedstate, True)"""
