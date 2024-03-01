@@ -52,7 +52,7 @@ the current pruning table"""
 print('Starting pruning')
 
 a = perf_counter()
-#prune(11)
+prune(6)
 b = perf_counter()
 
 print(f'done in {b-a} seconds')

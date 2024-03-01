@@ -46,7 +46,7 @@ printCube(cube, True)
 idaStarSolution = idaStar(cube)
 printMoveString(cube, idaStarSolution, True)
 
-iterativeDeepeningSolution = iterativeDeepening(cube)
+#iterativeDeepeningSolution = iterativeDeepening(cube)
 
-printMoveString(cube, idaStarSolution, True)
+#printMoveString(cube, idaStarSolution, True)
 
