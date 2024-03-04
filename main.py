@@ -1,6 +1,7 @@
 from idaStar import *
 from Cube import *
 from printCube import *
+from makePruningTables import prune
 
 """
 Cube modelled in form:
@@ -43,8 +44,15 @@ cube = np.array([
 
 printCube(cube, True)
 
-idaStarSolution = idaStar(cube)
-printMoveString(cube, idaStarSolution, True)
+pruningTableDepth7 = prune(7)
+
+with open('pruningTable.pickle', 'rb') as file:
+    pruningTable = pickle.load(file)
+
+idaStarSolution = idaStar(cube, pruningTable)
+idaStarSolution7 = idaStar(cube, pruningTableDepth7)
+
+#printMoveString(cube, idaStarSolution, True)
 
 #iterativeDeepeningSolution = iterativeDeepening(cube)
 

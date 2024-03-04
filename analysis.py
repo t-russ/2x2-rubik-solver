@@ -26,14 +26,19 @@ def scrambler():
 
 """Calls scrambler 100 times and applies each move set, then saves to numpy array file"""
 def applySaveScramble():
+    dataSet = []
+    for i in range(100):
+        scrambleString = ' '.join(scrambler())
+        tempState = applyMoveString(copy.deepcopy(solvedState), scrambleString)
+        dataSet.append(tempState)
+
     with open('scrambleSet.npy', 'wb') as f:
-        for i in range(100):
-            scrambleString = ' '.join(scrambler())
-            tempState = applyMoveString(copy.deepcopy(solvedState), scrambleString)
-            np.save(f, tempState)
+        np.save(f, dataSet)
 
 """generate the scrambled cubes"""
 #applySaveScramble()
 
-with open('scrambleSet.npy', 'rb') as f:
+dataSet = np.load('scrambleSet.npy')
+
+for i in range(100):
     pass

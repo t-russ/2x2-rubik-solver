@@ -10,11 +10,15 @@ with open('pruningTable.pickle', 'rb') as file:
 
 """The parent function that executes the ida* search with varying depth
 very similar to the iterative deepening implementation"""
-def idaStar(cubeState):
+def idaStar(cubeState, pruningTable):
 
     #definitions
     cubeStateNormalised = normaliseCube(copy.deepcopy(cubeState))
-    maxDistance = pruningTable.get(stateToHash(cubeStateNormalised))
+    intialHeuristic = pruningTable.get(stateToHash(cubeStateNormalised))
+
+    if intialHeuristic is not None: maxDistance = intialHeuristic
+    else: maxDistance = 11
+    
     moveStack = []
     initialMoves = ["F", "F2", "F'", "U", "U2", "U'", "R", "R2", "R'"]
     currentDepth = 1
@@ -50,8 +54,11 @@ def idaDFS(cubeState, maxDistance, maxDepth, depth, moveStack, nextMove):
     for m in nextMove:
         newState = applyMove(cubeState, m)
 
-        if pruningTable.get(stateToHash(newState)) + depth > maxDistance:
-            continue
+        heuristic = pruningTable.get(stateToHash(newState))
+
+        if heuristic is not None:
+            if pruningTable.get(stateToHash(newState)) + depth > maxDistance:
+                continue
 
         moveStack.append(m)
 

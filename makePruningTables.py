@@ -5,7 +5,6 @@ from time import perf_counter
 pruningTable = {}
 
 
-
 def pruneDFS(cubeState, maxDepth, depth, nextMove):
 
     if depth > maxDepth: return False
@@ -49,7 +48,7 @@ def prune(maxDepth):
 is not the most efficent. open file is commented off as running this will overwrite
 the current pruning table"""
 
-print('Starting pruning')
+"""print('Starting pruning')
 
 a = perf_counter()
 prune(6)
@@ -57,8 +56,8 @@ b = perf_counter()
 
 print(f'done in {b-a} seconds')
 
-print(len(pruningTable))
+print(len(pruningTable))"""
 
-"""with open('pruningTable.pickle', 'wb') as file:
+"""with open('pruningTableDepth7.pickle', 'wb') as file:
     pickle.dump(pruningTable, file, protocol=pickle.HIGHEST_PROTOCOL)"""
 
