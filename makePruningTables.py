@@ -2,10 +2,7 @@ import Cube
 import pickle
 from time import perf_counter
 
-pruningTable = {}
-
-
-def pruneDFS(cubeState, maxDepth, depth, nextMove):
+def pruneDFS(cubeState, maxDepth, depth, nextMove, pruningTable):
 
     if depth > maxDepth: return False
     depth += 1
@@ -23,7 +20,7 @@ def pruneDFS(cubeState, maxDepth, depth, nextMove):
         if Cube.solved(newState):return True
         nextMoveSet = Cube.nextMoveMap[Cube.alias[m]]
 
-        pruneDFS(newState, maxDepth, depth, nextMoveSet)
+        pruneDFS(newState, maxDepth, depth, nextMoveSet, pruningTable)
 
     return True
 
@@ -37,11 +34,19 @@ def prune(maxDepth):
                     5, 5, 5, 5)
     
     initialMoves = ["F", "F2", "F'", "U", "U2", "U'", "R", "R2", "R'"]
+    pruningTable = {}
 
-    pruneDFS(solvedState, maxDepth, 0, initialMoves)
+    print('Starting pruning')
 
+    a = perf_counter()
 
+    pruneDFS(solvedState, maxDepth, 0, initialMoves, pruningTable)
+    
+    b = perf_counter()
 
+    print(f'done in {b-a} seconds')
+
+    return(pruningTable)
 
 
 """This section begins the pruning process, this takes a very long time as the implementation

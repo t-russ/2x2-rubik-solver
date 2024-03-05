@@ -40,5 +40,7 @@ def applySaveScramble():
 
 dataSet = np.load('scrambleSet.npy')
 
+
+
 for i in range(100):
     pass

@@ -35,22 +35,31 @@ solvedCube = np.array([
           'Y', 'Y', 'Y', 'Y'])
 
 cube = np.array([
-          'B', 'Y', 'Y', 'G', #front face
-          'B', 'W', 'O', 'Y', #right face
-          'G', 'Y', 'O', 'W', #back face
-          'R', 'W', 'B', 'O', #left face
-          'G', 'R', 'O', 'R', #up face
-          'B', 'W', 'R', 'G']) #down face
+          'G', 'Y', 'B', 'B', #front face
+          'R', 'B', 'W', 'G', #right face
+          'Y', 'W', 'O', 'R', #back face
+          'R', 'Y', 'G', 'R', #left face
+          'B', 'O', 'O', 'G', #up face
+          'Y', 'O', 'W', 'W']) #down face
 
 printCube(cube, True)
-
-pruningTableDepth7 = prune(7)
 
 with open('pruningTable.pickle', 'rb') as file:
     pruningTable = pickle.load(file)
 
 idaStarSolution = idaStar(cube, pruningTable)
+print('\nPruning Table Depth 6')
+pruningTableDepth6 = prune(6)
+idaStarSolution6 = idaStar(cube, pruningTableDepth6)
+print('\nPruning Table Depth 7')
+pruningTableDepth7 = prune(7)
 idaStarSolution7 = idaStar(cube, pruningTableDepth7)
+print('\nPruning Table Depth 8')
+pruningTableDepth8 = prune(8)
+idaStarSolution8 = idaStar(cube, pruningTableDepth8)
+print('\nNormal solution')
+iterativeDeepening(cube)
+
 
 #printMoveString(cube, idaStarSolution, True)
 

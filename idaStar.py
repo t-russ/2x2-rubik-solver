@@ -4,8 +4,8 @@ import pickle
 import copy
 
 """Opens the pruning table from file"""
-with open('pruningTable.pickle', 'rb') as file:
-    pruningTable = pickle.load(file)
+"""with open('pruningTable.pickle', 'rb') as file:
+    pruningTable = pickle.load(file)"""
 
 
 """The parent function that executes the ida* search with varying depth
@@ -28,7 +28,7 @@ def idaStar(cubeState, pruningTable):
     #graph search
     while not condition:
         a = perf_counter()
-        condition = idaDFS(cubeStateNormalised, maxDistance, currentDepth, 0, moveStack, initialMoves)
+        condition = idaDFS(cubeStateNormalised, maxDistance, currentDepth, 0, moveStack, initialMoves, pruningTable)
         b = perf_counter()
 
         print(f"Depth {currentDepth}: Completed in {b-a} seconds ") 
@@ -46,7 +46,7 @@ def idaStar(cubeState, pruningTable):
 
 """The depth first search part of the ida* search. 
 heuristic map prunes using 'continue' to skip branches"""
-def idaDFS(cubeState, maxDistance, maxDepth, depth, moveStack, nextMove):
+def idaDFS(cubeState, maxDistance, maxDepth, depth, moveStack, nextMove, pruningTable):
 
     if depth >= maxDepth: return False
     depth +=1
@@ -57,14 +57,14 @@ def idaDFS(cubeState, maxDistance, maxDepth, depth, moveStack, nextMove):
         heuristic = pruningTable.get(stateToHash(newState))
 
         if heuristic is not None:
-            if pruningTable.get(stateToHash(newState)) + depth > maxDistance:
+            if heuristic + depth > maxDistance:
                 continue
 
         moveStack.append(m)
 
         if solved(newState):return True
 
-        if idaDFS(newState, maxDistance, maxDepth, depth, moveStack, nextMoveMap[alias[m]]):
+        if idaDFS(newState, maxDistance, maxDepth, depth, moveStack, nextMoveMap[alias[m]], pruningTable):
             return True
         
         moveStack.pop()
