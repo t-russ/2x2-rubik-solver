@@ -4,6 +4,7 @@ from iterativeDeepening import *
 import numpy as np
 import random
 import copy
+import pandas as pd
 
 moveSet = ["F", "F2", "F'", "U", "U2", "U'", "R", "R2", "R'"]
 
@@ -39,6 +40,8 @@ def applySaveScramble():
 #applySaveScramble()
 
 dataSet = np.load('scrambleSet.npy')
+
+results = pd.DataFrame(columns = ['Depth 8', 'Depth 9', 'Depth 10', 'Depth 11'])
 
 
 
