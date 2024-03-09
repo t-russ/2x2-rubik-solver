@@ -4,7 +4,6 @@ from iterativeDeepening import *
 import numpy as np
 import random
 import copy
-import pandas as pd
 
 moveSet = ["F", "F2", "F'", "U", "U2", "U'", "R", "R2", "R'"]
 
@@ -33,17 +32,50 @@ def applySaveScramble():
         tempState = applyMoveString(copy.deepcopy(solvedState), scrambleString)
         dataSet.append(tempState)
 
-    with open('scrambleSet.npy', 'wb') as f:
+    with open('data/scrambleSet.npy', 'wb') as f:
         np.save(f, dataSet)
+
+
+"""This iterates through different pruning tables getting results from 100 scrambled cubes"""
+def getResults(tableDict):
+    results = []
+
+    for i in range(4):
+        r = []
+        table = tableDict[i]
+
+        for j in range(2):
+            s = dataSet[j]
+            print(s)
+            r.append(idaStar(s, table)[1])
+        
+        results.append(r)
+    
+    return results
 
 """generate the scrambled cubes"""
 #applySaveScramble()
 
-dataSet = np.load('scrambleSet.npy')
+"""Importing tables and Definitions"""
+with open('data/pruningTableDepth8.pickle', 'rb') as file:
+    pruningTableDepth8 = pickle.load(file)
 
-results = pd.DataFrame(columns = ['Depth 8', 'Depth 9', 'Depth 10', 'Depth 11'])
+with open('data/pruningTableDepth9.pickle', 'rb') as file:
+    pruningTableDepth9 = pickle.load(file)
+
+with open('data/pruningTableDepth10.pickle', 'rb') as file:
+    pruningTableDepth10 = pickle.load(file)
+
+with open('data/pruningTableDepth11.pickle', 'rb') as file:
+    pruningTableDepth11 = pickle.load(file)
+
+dataSet = np.load('data/scrambleSet.npy')
+tableDict = {0: pruningTableDepth8, 1: pruningTableDepth9, 2: pruningTableDepth10, 3: pruningTableDepth11}
 
 
+"""Get results and save to file"""
+results = getResults(tableDict)
 
-for i in range(100):
-    pass
+with open('data/results.npy', 'wb') as f:
+    np.save(f, results)
+

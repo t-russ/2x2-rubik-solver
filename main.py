@@ -3,6 +3,19 @@ from Cube import *
 from printCube import *
 from makePruningTables import prune
 
+#importing of pruning tables
+with open('data/pruningTableDepth8.pickle', 'rb') as file:
+    pruningTableDepth8 = pickle.load(file)
+
+with open('data/pruningTableDepth9.pickle', 'rb') as file:
+    pruningTableDepth9 = pickle.load(file)
+
+with open('data/pruningTableDepth10.pickle', 'rb') as file:
+    pruningTableDepth10 = pickle.load(file)
+
+with open('data/pruningTableDepth11.pickle', 'rb') as file:
+    pruningTableDepth11 = pickle.load(file)
+
 """
 Cube modelled in form:
        _____
@@ -19,13 +32,21 @@ Cube modelled in form:
 Each facelet has a different indice
 A 24 length array is used to store the state of the cube.
 
-Moves are modelled as permutations. 
-each value in the array displays where each index in the current state of the cube is moved.
+DLB (down left back) corner is fixed so only moves F, F2, F', U, U2, U', R, R2, R' are needed
 
-DLB (down left back corner) is fixed, this means that the only moves needed to solve are F U R.
-This is done since this allows for every cube to be moved without moving our fixed corner.
+Move Notation:
+Letter - denotes cube face. F = Front, R = Right, U = Up.
+
+F - 90 degree clockwise turn of the front face.
+F2 - 180 degree turn of front face.
+F' - 90 degreee anti-clockwise turn of front face.
+
+Same applies of U, R.
+
+Choose a DLB corner, orient cube around this with Front Face being indices 0-3.
+Enter into 'cube' array below and then call solving functions
 """
-
+#Sample Solved cube array
 solvedCube = np.array([
           'R', 'R', 'R', 'R',
           'B', 'B', 'B', 'B',
@@ -34,36 +55,39 @@ solvedCube = np.array([
           'W', 'W', 'W', 'W',
           'Y', 'Y', 'Y', 'Y'])
 
+#!!Input your cube here!!
 cube = np.array([
-          'G', 'Y', 'B', 'B', #front face
-          'R', 'B', 'W', 'G', #right face
-          'Y', 'W', 'O', 'R', #back face
-          'R', 'Y', 'G', 'R', #left face
-          'B', 'O', 'O', 'G', #up face
-          'Y', 'O', 'W', 'W']) #down face
+        #front face
+        'G', 'Y',
+        'B', 'B',
+        #right face
+        'R', 'B',
+        'W', 'G',
+        #back face
+        'Y', 'W',
+        'O', 'R',
+        #left face
+        'R', 'Y',
+        'G', 'R', 
+        #up face  
+        'B', 'O',
+        'O', 'G', 
+        #down face
+        'Y', 'O',
+        'W', 'W']) 
 
+
+#generate a pruning table of chosen depth, depths 8-11 are supplied and defined above
+#pruningTable = prune(6)
+
+#!!Set second parameter, colouring, to False if not printing in terminal!!
 printCube(cube, True)
 
-with open('pruningTable.pickle', 'rb') as file:
-    pruningTable = pickle.load(file)
+#Iterative Deepening Solution, use second return to get solve time
+iterativeDeepeningSolution = iterativeDeepening(cube)[0]
 
-idaStarSolution = idaStar(cube, pruningTable)
-print('\nPruning Table Depth 6')
-pruningTableDepth6 = prune(6)
-idaStarSolution6 = idaStar(cube, pruningTableDepth6)
-print('\nPruning Table Depth 7')
-pruningTableDepth7 = prune(7)
-idaStarSolution7 = idaStar(cube, pruningTableDepth7)
-print('\nPruning Table Depth 8')
-pruningTableDepth8 = prune(8)
-idaStarSolution8 = idaStar(cube, pruningTableDepth8)
-print('\nNormal solution')
-iterativeDeepening(cube)
+#ida* solution, pruning table must be chosen for this, use second return to get solve time
+idaStarSolution = idaStar(cube, pruningTableDepth11)[0]
 
-
-#printMoveString(cube, idaStarSolution, True)
-
-#iterativeDeepeningSolution = iterativeDeepening(cube)
-
-#printMoveString(cube, idaStarSolution, True)
-
+#To print solved cube call 'printMoveString'
+printMoveString(cube, idaStarSolution, True)

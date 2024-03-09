@@ -36,12 +36,13 @@ def idaStar(cubeState, pruningTable):
         currentDepth += 1
 
     totalTimeEnd = perf_counter()
+    time = totalTimeEnd-totalTimeStart
 
     solution = ' '.join(moveStack)
     print(f'\nSolution:  {solution}')
-    print(f'\nSolution found in {totalTimeEnd-totalTimeStart} seconds')
+    print(f'\nSolution found in {time} seconds')
 
-    return solution
+    return solution, time
 
 
 """The depth first search part of the ida* search. 

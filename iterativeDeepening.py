@@ -52,11 +52,12 @@ def iterativeDeepening(cubeState):
     totalTimeEnd = perf_counter()
 
     solution = ' '.join(moveStack)
+    time = totalTimeEnd-totalTimeStart
 
     print(f'Solution: {solution}')
-    print(f'\nSolution found in {totalTimeEnd-totalTimeStart} seconds')
+    print(f'\nSolution found in {time} seconds')
 
-    return solution
+    return solution, time
 
 
 
