@@ -1,3 +1,8 @@
+"""
+References: 
+layout inspired by https://github.com/MeepMoop/py222/tree/master
+solver inspired by: https://github.com/lukapopijac/pocket-cube-optimal-solver
+"""
 from idaStar import *
 from Cube import *
 from printCube import *
@@ -29,7 +34,7 @@ Cube modelled in form:
       |22 23|
        ‾‾‾‾‾
 
-Each facelet has a different indice
+Each cubie face has a different indice
 A 24 length array is used to store the state of the cube.
 
 DLB (down left back) corner is fixed so only moves F, F2, F', U, U2, U', R, R2, R' are needed
