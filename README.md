@@ -43,8 +43,9 @@ For more information on cube notation - https://ruwix.com/the-rubiks-cube/notati
 <p>
 DLB (down left back) corner is fixed, so only moves F, F2, F', U, U2, U', R, R2, and R' are needed.
   
-Choose a DLB corner and orient the cube around this, with the front face being indices 0-3.
+Choose a DLB corner and get faces from this. 
 Orientation must be preserved, with respect to the front face, to ensure a solution is found.
+If done correctly, the front face will have index 0-3 within the cube array.
 
 In `main.py` enter cube state into `cube` and call solve functions. 
 Two different solvers are available: `iterativeDeepening` and `idaStar`. Both take the cube state as their first parameter.
