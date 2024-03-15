@@ -57,4 +57,6 @@ Both solvers have two returns:
 For IDA* solver (`idaStar`), a pruning table must be chosen as the second parameter; 4 tables of different depths are available, 
 or the user can generate a table of chosen depth using `prune(n)`, where n is the desired depth.
 
+Note that `iterativeDeepening` is considerably slower than `idaStar` when using high-depth pruning tables.
+
 </p>
