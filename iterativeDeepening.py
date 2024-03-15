@@ -2,15 +2,6 @@ from Cube import *
 from printCube import *
 from time import perf_counter
 
-"""Exectues a depth first search with a give state and maximum depth of traversal
-   doesn't actually contain the depth first search algorithm
-def depthFirstSearch(cubeState, maxDepth):
-    moveStack = []
-    initialMoves = ["F", "F2", "F'", "U", "U2", "U'", "R", "R2", "R'"]
-    dfs(cubeState, maxDepth, 0, moveStack, initialMoves)
-    print(' '.join(moveStack))"""
-
-
 """The bread and butter of the depth first search. completed using recursive function
    used by iterative deepening function"""
 def dfs(cubeState, maxDepth, depth, moveStack, nextMove):

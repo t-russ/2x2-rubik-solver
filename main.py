@@ -60,7 +60,7 @@ solvedCube = np.array([
           'W', 'W', 'W', 'W',
           'Y', 'Y', 'Y', 'Y'])
 
-#!!Input your cube here!!
+#!!!INPUT YOUR CUBE HERE!!!
 cube = np.array([
         #front face
         'G', 'Y',
@@ -85,7 +85,7 @@ cube = np.array([
 #generate a pruning table of chosen depth, depths 8-11 are supplied and defined above
 #pruningTable = prune(6)
 
-#!!Set second parameter, colouring, to False if not printing in terminal!!
+#!!!Set second parameter, colouring, to False if not printing in terminal!!!
 printCube(cube, True)
 
 #Iterative Deepening Solution, use second return to get solve time
