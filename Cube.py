@@ -1,5 +1,6 @@
 import numpy as np
 import re
+""" References: https://stackoverflow.com/questions/6098250/in-place-way-to-apply-a-permutation-to-a-list-inverse-of-sorting-by-key"""
 
 #maps moves to indices within the moves array
 moveMap = {'F':0, 'F2':1, "F'":2, 'U':3, 'U2':4, "U'":5, 'R':6, 'R2':7, "R'":8}
