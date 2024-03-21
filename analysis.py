@@ -37,7 +37,7 @@ def applySaveScramble():
 
 
 """This iterates through different pruning tables getting results from 100 scrambled cubes"""
-def getResults(tableDict):
+def getIdaResults(tableDict, dataSet):
     results = []
 
     for i in range(4):
@@ -50,6 +50,14 @@ def getResults(tableDict):
             r.append(idaStar(s, table)[1])
         
         results.append(r)
+    
+    return results
+
+def getIdResults(dataSet):
+    results = []
+    for i in range(100):
+        s = dataSet[i]
+        results.append(iterativeDeepening(s)[1])
     
     return results
 
@@ -74,8 +82,18 @@ tableDict = {0: pruningTableDepth8, 1: pruningTableDepth9, 2: pruningTableDepth1
 
 
 """Get results and save to file"""
-results = getResults(tableDict)
+#results = getIdaResults(tableDict, dataSet)
 
-with open('data/results.npy', 'wb') as f:
-    np.save(f, results)
+
+"""with open('data/idaResults.npy', 'wb') as f:
+    np.save(f, results)"""
+
+idResults = getIdResults(dataSet)
+
+with open('data/iterativeResults.npy', 'wb') as f:
+    np.save(f, idResults)
+
+print('Done')
+
+#idaResults = np.load('data/idaResults.npy')
 
