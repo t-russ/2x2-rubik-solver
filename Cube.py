@@ -1,9 +1,13 @@
 import numpy as np
 import re
+import random
 """ References: https://stackoverflow.com/questions/6098250/in-place-way-to-apply-a-permutation-to-a-list-inverse-of-sorting-by-key"""
 
 #maps moves to indices within the moves array
 moveMap = {'F':0, 'F2':1, "F'":2, 'U':3, 'U2':4, "U'":5, 'R':6, 'R2':7, "R'":8}
+
+#array of all possible moves, used to scramble cube
+moveSet = ["F", "F2", "F'", "U", "U2", "U'", "R", "R2", "R'"]
 
 #permutations of the cube. F2, F' etc created by applying permutation 2 or 3 times to [1, 2, ... , 23]
 moves = np.array([
@@ -20,6 +24,15 @@ moves = np.array([
 #define regular expression pattern to find moves from a given string
 cubeStringRegex = re.compile(r"[FURfur][2']?")
 
+#sample solved cube, used for scrambling
+solvedState = np.array([
+          'R', 'R', 'R', 'R',
+          'B', 'B', 'B', 'B',
+          'O', 'O', 'O', 'O',
+          'G', 'G', 'G', 'G',
+          'W', 'W', 'W', 'W',
+          'Y', 'Y', 'Y', 'Y'])
+
 
 """Create a map that takes last move and returns list of acceptable next moves
    this removes basic redundant sequences of moves such as F2 F2, F F' etc."""
@@ -34,15 +47,12 @@ nextMoveMap = {"id1" : ["U", "U2", "U'", "R", "R2", "R'"],
          "id3" : ["F", "F2", "F'", "U", "U2", "U'"]}
 
 
-
 """Converts a string of moves to a list of moves.
    Seperation done by applying regular expression.
    example: "F F2 F'" -> ["F", "F2", "F'"]  """
 def stringToMoves(moveString):
     moveList = cubeStringRegex.findall(moveString)
     return moveList
-
-
 
 """Applys permutation to cubes current state"""
 def applyMove(cubeState, m):
@@ -81,6 +91,7 @@ def normaliseCube(cubeState):
     rightColour = oppositeFaceMap.get(leftColour)
     upColour = oppositeFaceMap.get(downColour)
 
+
     cubeState[cubeState == frontColour] = 0
     cubeState[cubeState == rightColour] = 1
     cubeState[cubeState == backColour] = 2
@@ -97,6 +108,16 @@ def normaliseCube(cubeState):
 def stateToHash(cubeState):
     return hash(tuple(cubeState))
 
+"""creates an array of 100 random moves, used to generate random cube states"""
+def scrambler():
+    scrambledMoves = []
+    for i in range(100):
+        scrambledMoves.append(random.choice(moveSet))
 
+    return(scrambledMoves)
 
-
+"""Returns a randomly scrambled cube"""
+def randomCube():
+     randomMoves = ' '.join(scrambler())
+     rCube = np.asarray(applyMoveString(solvedState, randomMoves))
+     return rCube

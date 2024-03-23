@@ -48,19 +48,11 @@ F' - 90 degreee anti-clockwise turn of front face.
 
 Same applies of U, R.
 
-Choose a DLB corner, orient cube around this with Front Face being indices 0-3.
+Choose a DLB (Down Left Back) corner, orient cube using net shown above, with Front Face being indices 0-3.
 Enter into 'cube' array below and then call solving functions
 """
-#Sample Solved cube array
-solvedCube = np.array([
-          'R', 'R', 'R', 'R',
-          'B', 'B', 'B', 'B',
-          'O', 'O', 'O', 'O',
-          'G', 'G', 'G', 'G',
-          'W', 'W', 'W', 'W',
-          'Y', 'Y', 'Y', 'Y'])
 
-#!!!INPUT YOUR CUBE HERE!!!
+"""!!!INPUT YOUR CUBE HERE!!!"""
 cube = np.array([
         #front face
         'G', 'Y',
@@ -81,18 +73,39 @@ cube = np.array([
         'Y', 'O',
         'W', 'W']) 
 
+"""Sample solved cube array"""
+solvedCube = np.array([
+          'R', 'R', 'R', 'R',
+          'B', 'B', 'B', 'B',
+          'O', 'O', 'O', 'O',
+          'G', 'G', 'G', 'G',
+          'W', 'W', 'W', 'W',
+          'Y', 'Y', 'Y', 'Y'])
 
-#generate a pruning table of chosen depth, depths 8-11 are supplied and defined above
+"""generate your own scrambled cube using randomCube"""
+cube = randomCube()
+
+
+"""generate a pruning table of chosen depth, depths 8-11 are supplied and defined above"""
 #pruningTable = prune(6)
 
-#!!!Set second parameter, colouring, to False if not printing in terminal!!!
+
+"""Prints cube supplied in first parameter, second parameter effects colour printing
+!!!Set second parameter, colouring, to False if not printing in terminal!!!"""
 printCube(cube, True)
 
-#Iterative Deepening Solution, use second return to get solve time
-iterativeDeepeningSolution = iterativeDeepening(cube)[0]
 
-#ida* solution, pruning table must be chosen for this, use second return to get solve time
-idaStarSolution = idaStar(cube, pruningTableDepth11)[0]
+"""Iterative Deepening Solution, use second return to get solve time"""
+#iterativeDeepeningSolution = iterativeDeepening(cube)[0]
 
-#To print solved cube call 'printMoveString'
-printMoveString(cube, idaStarSolution, True)
+
+"""ida* solution, pruning table must be chosen for this, use second return to get solve time"""
+#idaStarSolution = idaStar(cube, pruningTableDepth9)[0]
+
+
+"""ida* solution, using the optimisation as laid out in the report."""
+idaOptimisedSolution = idaStarOptimised(cube, pruningTableDepth8)[0]
+
+
+"""To print solved cube call 'printMoveString'"""
+printMoveString(cube, idaOptimisedSolution, True)
