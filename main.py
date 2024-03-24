@@ -107,5 +107,5 @@ printCube(cube, True)
 idaOptimisedSolution = idaStarOptimised(cube, pruningTableDepth8)[0]
 
 
-"""To print solved cube call 'printMoveString'"""
+"""Prints solution applied to cube state move by move"""
 printMoveString(cube, idaOptimisedSolution, True)

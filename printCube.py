@@ -1,5 +1,5 @@
 import numpy as np
-from Cube import applyMoveString
+from Cube import applyMoveString, stringToMoves, applyMove
 
 #Maps characters to their Ansi escape sequence, allows for colour printing in terminal
 colourMap = {'R' : '\033[31mR\033[0m',
@@ -40,5 +40,13 @@ def printCube(cubeState, colouring):
 
 
 def printMoveString(cubeState, moveString, colouring):
-
-     printCube(applyMoveString(cubeState, moveString), colouring)
+     moveArr = stringToMoves(moveString)
+     print("\n--------------- STARTING STEP-BY-STEP PRINTING ---------------")
+     print("Initial State:")
+     printCube(cubeState, colouring)
+     n = 1
+     for i in moveArr:
+          cubeState = applyMove(cubeState, i)
+          print(f"Move {n}: Applying Move {i} ")
+          printCube(cubeState, colouring)
+          n+=1
