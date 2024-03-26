@@ -79,11 +79,11 @@ tableDict = {0: pruningTableDepth8, 1: pruningTableDepth9, 2: pruningTableDepth1
 
 """Get results and save to file"""
 
-results = getIdaResults(tableDict, dataSet)
+#results = getIdaResults(tableDict, dataSet)
 
-
+"""
 with open('data/idaResults.npy', 'wb') as f:
-    np.save(f, results)
+    np.save(f, results)"""
 
 #idResults = getIdResults(dataSet)
 
@@ -108,8 +108,19 @@ print(f"median: {np.median(idResults)}")
 print(f"min: {np.min(idResults)}")
 print(f"max: {np.max(idResults)}")
 
-plt.style.use('seaborn-v0_8-darkgrid')
+for i in range(4):
+    s = idaResults[i]
+    print(f"\n IDA* Depth {i + 8}")
+    print(f"Mean: {np.mean(s)}")
+    print(f"median: {np.median(s)}")
+    print(f"min: {np.min(s)}")
+    print(f"max: {np.max(s)}")
 
+
+
+"""------- Plotting -------"""
+plt.style.use('seaborn-v0_8-darkgrid')
+"""
 bins = np.arange(6, depths.max() + 1.5) - 0.5
 plt.hist(depths, bins, rwidth=0.5, ec = 'black', alpha = 0.85, linewidth = 0.8)
 plt.title('Distribution of Depths')
@@ -121,5 +132,28 @@ plt.hist(idResults, rwidth=0.8, ec = 'black', alpha = 0.85, linewidth = 0.8, bin
 plt.title('Distribution of Solve Time for Iterative Deepening')
 plt.xlabel('Time to solve (seconds)')
 plt.ylabel('Frequency')
+plt.show()
+"""
+
+depth8 = np.concatenate((np.array([63.67]), idaResults[0])) 
+depth9 = np.concatenate((np.array([388.15]), idaResults[1]))
+depth10 = np.concatenate((np.array([2289.3]), idaResults[2]))
+idset = np.concatenate((np.array([0.0]), idResults))
+
+
+d8cumsum = np.cumsum(depth8)
+d9cumsum = np.cumsum(depth9)
+d10cumsum = np.cumsum(depth10)
+idcumsum = np.cumsum(idset)
+
+x = range(0, 101)
+plt.plot(x, idcumsum, label = 'Iterative Deepening')
+plt.plot(x, d8cumsum, label = 'IDA* Depth 8')
+plt.plot(x, d9cumsum, label = 'IDA* Depth 9', linestyle = "--")
+plt.plot(x, d10cumsum, label = 'IDA* Depth 10', linestyle = "--")
+plt.xlabel('Number of Cubes Solved')
+plt.ylabel('Time (s)')
+plt.title("Cumulative Time to Prune + Solve")
+plt.legend()
 plt.show()
 

@@ -9,6 +9,9 @@ from printCube import *
 from makePruningTables import prune
 
 #importing of pruning tables
+with open('data/pruningTableDepth7.pickle', 'rb') as file:
+    pruningTableDepth7 = pickle.load(file)
+
 with open('data/pruningTableDepth8.pickle', 'rb') as file:
     pruningTableDepth8 = pickle.load(file)
 
@@ -87,7 +90,7 @@ cube = randomCube()
 
 
 """generate a pruning table of chosen depth, depths 8-11 are supplied and defined above"""
-#pruningTable = prune(6)
+#pruningTable = prune(5)
 
 
 """Prints cube supplied in first parameter, second parameter effects colour printing

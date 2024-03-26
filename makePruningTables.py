@@ -52,8 +52,8 @@ def prune(maxDepth):
 """This section begins the pruning process, depending on depth this takes a very long time as the implementation
 is not the most efficent.  will overwrite the mentioned table"""
 
-#pruningTable = prune(10)
+"""pruningTable = prune(7)
 
-#with open('pruningTableDepth10.pickle', 'wb') as file:
-#    pickle.dump(pruningTable, file, protocol=pickle.HIGHEST_PROTOCOL)
+with open('pruningTableDepth7.pickle', 'wb') as file:
+    pickle.dump(pruningTable, file, protocol=pickle.HIGHEST_PROTOCOL)"""
 
