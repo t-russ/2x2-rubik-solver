@@ -25,6 +25,9 @@ def idaStar(cubeState, pruningTable):
     condition = False
     totalTimeStart = perf_counter()
 
+    print("---------- IDA* STARTING -----------")
+
+
     #graph search
     while not condition:
         a = perf_counter()
@@ -34,6 +37,11 @@ def idaStar(cubeState, pruningTable):
         print(f"Depth {currentDepth}: Completed in {b-a} seconds ") 
 
         currentDepth += 1
+
+        if currentDepth > 11:
+            print('No solution found. Error in input')
+            condition = True
+            moveStack = []
 
     totalTimeEnd = perf_counter()
     time = totalTimeEnd-totalTimeStart
@@ -87,6 +95,8 @@ def idaStarOptimised(cubeState, pruningTable):
     condition = False
     totalTimeStart = perf_counter()
 
+    print("---------- IDA* OPTIMISED STARTING -----------")
+
     #graph search
     while not condition:
         a = perf_counter()
@@ -96,6 +106,10 @@ def idaStarOptimised(cubeState, pruningTable):
         print(f"Depth {currentDepth}: Completed in {b-a} seconds ") 
 
         currentDepth += 1
+        if currentDepth > 11:
+            print('No solution found. Error in input')
+            condition = True
+            moveStack = []
 
     totalTimeEnd = perf_counter()
     time = totalTimeEnd-totalTimeStart

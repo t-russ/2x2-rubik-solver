@@ -18,11 +18,13 @@ with open('data/pruningTableDepth8.pickle', 'rb') as file:
 with open('data/pruningTableDepth9.pickle', 'rb') as file:
     pruningTableDepth9 = pickle.load(file)
 
-with open('data/pruningTableDepth10.pickle', 'rb') as file:
+#Some more tables available
+"""with open('data/pruningTableDepth10.pickle', 'rb') as file:
     pruningTableDepth10 = pickle.load(file)
 
 with open('data/pruningTableDepth11.pickle', 'rb') as file:
-    pruningTableDepth11 = pickle.load(file)
+    pruningTableDepth11 = pickle.load(file)"""
+
 
 """
 Cube modelled in form:
@@ -55,6 +57,8 @@ Choose a DLB (Down Left Back) corner, orient cube using net shown above, with Fr
 Enter into 'cube' array below and then call solving functions
 """
 
+"""---------- Cube Input -----------"""
+
 """!!!INPUT YOUR CUBE HERE!!!"""
 cube = np.array([
         #front face
@@ -74,7 +78,12 @@ cube = np.array([
         'O', 'G', 
         #down face
         'Y', 'O',
-        'W', 'W']) 
+        'W', 'W' ]) 
+
+
+
+""""!!! OR GENERATE A RANDOM CUBE !!!"""
+#cube = randomCube()
 
 """Sample solved cube array"""
 solvedCube = np.array([
@@ -85,24 +94,26 @@ solvedCube = np.array([
           'W', 'W', 'W', 'W',
           'Y', 'Y', 'Y', 'Y'])
 
-"""generate your own scrambled cube using randomCube"""
-cube = randomCube()
 
-
-"""generate a pruning table of chosen depth, depths 8-11 are supplied and defined above"""
+"""generate a pruning table of chosen depth, depths 7-11 are supplied.
+    Table definitions at top of file."""
 #pruningTable = prune(5)
 
 
-"""Prints cube supplied in first parameter, second parameter effects colour printing
+"""Prints cube supplied in first parameter, second parameter dictates colour printing
 !!!Set second parameter, colouring, to False if not printing in terminal!!!"""
 printCube(cube, True)
 
+
+"""-------------------- Solvers --------------------"""
 
 """Iterative Deepening Solution, use second return to get solve time"""
 #iterativeDeepeningSolution = iterativeDeepening(cube)[0]
 
 
-"""ida* solution, pruning table must be chosen for this, use second return to get solve time"""
+"""ida* solution, pruning table must be chosen for this, use second return to get solve time
+    Note that if your solution is taking a very long time with this solver, it will be due to 
+    a misinput cube"""
 #idaStarSolution = idaStar(cube, pruningTableDepth9)[0]
 
 
@@ -111,4 +122,4 @@ idaOptimisedSolution = idaStarOptimised(cube, pruningTableDepth8)[0]
 
 
 """Prints solution applied to cube state move by move"""
-printMoveString(cube, idaOptimisedSolution, True)
+#printMoveString(cube, idaOptimisedSolution, True)

@@ -159,6 +159,7 @@ for i in range(4):
 
 """------- Plotting -------"""
 plt.style.use('seaborn-v0_8-darkgrid')
+
 """
 bins = np.arange(6, depths.max() + 1.5) - 0.5
 plt.hist(depths, bins, rwidth=0.5, ec = 'black', alpha = 0.85, linewidth = 0.8)
@@ -195,18 +196,18 @@ d10cumsum = np.cumsum(depth10)
 idcumsum = np.cumsum(idset)
 
 x = range(0, 101)
-"""plt.plot(x, idcumsum, label = 'Iterative Deepening')
+#lt.plot(x, idcumsum, label = 'Iterative Deepening')
 
 plt.plot(x, d8cumsum, label = 'IDA* Depth 8', linestyle = "--")
-plt.plot(x, d9cumsum, label = 'IDA* Depth 9', linestyle = "--")
-plt.plot(x, d10cumsum, label = 'IDA* Depth 10', linestyle = "--")"""
+#plt.plot(x, d9cumsum, label = 'IDA* Depth 9', linestyle = "--")
+#plt.plot(x, d10cumsum, label = 'IDA* Depth 10', linestyle = "--")
 
-plt.plot(x, d5cumsum, label = 'Optimised Depth 5')
-plt.plot(x, d6cumsum, label = 'Optimised Depth 6')
-plt.plot(x, d7cumsum, label = 'Optimised Depth 7')
-plt.plot(x, d8OPcumsum, label = 'Optimised Depth 8')
+plt.plot(x, d5cumsum, label = 'IDA* Optimised Depth 5')
+plt.plot(x, d6cumsum, label = 'IDA* Optimised Depth 6')
+plt.plot(x, d7cumsum, label = 'IDA* Optimised Depth 7')
+plt.plot(x, d8OPcumsum, label = 'IDA* Optimised Depth 8')
 
-plt.xlabel('Number of, Cubes Solved')
+plt.xlabel('Number of Cubes Solved')
 plt.ylabel('Time (s)')
 plt.title("Cumulative Time to Prune + Solve")
 plt.legend()
